@@ -11,7 +11,7 @@ const headerProps = {
 
 const ProductCrud = () => {
     const [products, setProducts] = useState([])
-    const [inputs, setInputs] = useState({})
+    const [inputs, setInputs] = useState([])
 
     useEffect(() => {
         api.get('products').then(response => {
@@ -22,17 +22,18 @@ const ProductCrud = () => {
     const getUpdatedList = (product, add = true) => {
         const list = products.filter(u => u.id !== product.id)
 
-        if(add) list.unshift(product)
+        if(add){ 
+            list.unshift(product)
             return list
+    }
     }
 
     const remove = (id) => {
         api.delete(`products/${id}`).then(response => {
-            const products = getUpdatedList(id, false)
-            setProducts(products)
+            const list = products.filter(u => u.id !== id)
+            setProducts(list)
         })
     }
-
     const clear = (e) => {
         setInputs({})
         e.preventDefault() 

@@ -1,6 +1,6 @@
 import React from 'react'
-import Main from '../template/Main'
-import Clock from '../Clock'
+import Main from '../../components/template/Main'
+import Clock from '../../components/Clock'
 
 export default props =>
     <Main icon="home" title="404"

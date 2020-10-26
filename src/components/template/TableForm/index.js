@@ -1,7 +1,7 @@
 import React from 'react'
 
 const TableForm = ({cabecalho, children}) => (
-    <table className="table mt-4">
+    <table className="table mt-1">
         <thead>
             <tr>
                 {cabecalho}

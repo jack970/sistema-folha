@@ -1,18 +1,40 @@
-import React from 'react'
-import { Switch, Route, Redirect } from 'react-router'
+import React from "react";
+import {BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { isAuthenticated } from "../services/auth";
+import Error404 from '../pages/Error404'
+import Login from "../pages/Login"
+import Cadastro from "../pages/Cadastro"
+import Painel from "../pages/Painel";
 
-import Home from '../components/home/Home'
-import UserCrud from '../components/user/UserCrud'
-import ProductCrud from '../components/product/ProductCrud'
-import Error404 from '../components/Error404/Error404'
-import Signup from '../components/SingUp'
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+      )
+    }
+  />
+);
 
-export default props => 
+const Routes = () => (
+  <BrowserRouter>
     <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/users' component={UserCrud} />
-        <Route path='/teste' component={Signup} />
-        <Route path='/products' component={ProductCrud} />
-        <Route path='/404'  component={Error404} />
-        <Redirect to='/404'/>
+      <Route exact path="/" render={() => 
+      isAuthenticated() ? (
+        <Redirect to="/painel"/> 
+      ) : (
+        <Login />
+      )
+        }
+      /> 
+      <Route path="/cadastro" component={Cadastro}/>
+      <PrivateRoute path="/painel" component={Painel}/>
+      <Route path="*" component={Error404} />
     </Switch>
+  </BrowserRouter>
+);
+
+export default Routes;

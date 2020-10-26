@@ -9,13 +9,22 @@ const UseSignUpForm =(callback) => {
         }
     }
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (event, mask) => {
         event.persist();
-        setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));
+        const {value, name} = event.target
+
+        setInputs(inputs => ({...inputs, [name]: mask ?  mask(value) : value}));
+      }
+
+    const clearInputs = (event) => {
+        event.preventDefault();
+        setInputs({});
       }
 
     return {
         inputs,
+        clearInputs,
+        setInputs,
         handleInputChange,
         handleSubmit
     }

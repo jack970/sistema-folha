@@ -2,7 +2,9 @@ import './Main.css'
 import React from 'react'
 import Header from './Header'
 
-export default props =>
+export default props =>{
+
+    return(
     <React.Fragment>
         <Header {...props} />
         <main className="content container-fluid">
@@ -10,4 +12,4 @@ export default props =>
                 {props.children}
             </div>
         </main>
-    </React.Fragment>
+    </React.Fragment>)}
