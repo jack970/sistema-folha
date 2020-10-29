@@ -3,36 +3,55 @@ import { Autocomplete } from '@material-ui/lab'
 import React from 'react'
 import { AccountCircle, ContactMail } from '@material-ui/icons/';
 import { DateCalendar, CheckBox, DualRowComponent, LegendField, OnlySelectComponent, Row, SingleComponent} from './RowComponent'
+import KeyboardDatePickerComponent from './DatePickerField';
 
-export const DadosPessoais = ({value2, nacionalidade, ListaCidade, valueCidade, setInputs, ListaEstados, valueEstado, selectvalue, valueRaca, valueEscolaridade , valueEstadoCivil, valueNascimento, valueSexo, handleInputChange}) => {
+export const DadosPessoais = ({
+    value2, 
+    nacionalidade, 
+    ListaCidade, 
+    valueNascimento, 
+    setInputs, 
+    ListaEstados,
+    valueEstado, 
+    selectvalue, 
+    valueRaca, 
+    valueEscolaridade , 
+    valueEstadoCivil, 
+    valueSexo, 
+    handleInputChange}) => {
+
     const Tipo = ["Pessoa Física", "Pessoa Jurídica"]
     const Sexo = ["Masculino", "Feminino"]
     const EstadoCivil = ["Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)", "Separado(a)"]
     const Escolaridade = ["Não sabe ler/escrever", "Alfabetizado", "1ª Grau completo", "2ª Grau completo", "1ª Grau Incompleto", "2ª Grau Incompleto", "Superior Incompleto", "Superior Completo", "Especialização/Residência", "Mestrado", "Doutorado"]
     const CorRaca = ["Branco(a)", "Pardo(a)", "Preto(a)", "Amarelo(a)", "Indígena"]
-
+   
     return(
         <LegendField title="Dados Pessoais" titleSize="h3">
             <Row>
-            <SingleComponent 
-                label="Código"
-                startIcon={ <ContactMail /> }
-                readOnly={true} 
-                />
-             <SingleComponent 
-                label="Nome"
-                startIcon={ <AccountCircle /> }
-                name="nome"
-                value={value2}
-                handleInputChange={handleInputChange}
-                />
-            
+                <SingleComponent 
+                    label="Código"
+                    startIcon={ <ContactMail /> }
+                    readOnly={true} 
+                    />
+                <SingleComponent 
+                    label="Nome"
+                    startIcon={ <AccountCircle /> }
+                    name="nome"
+                    value={value2}
+                    handleInputChange={handleInputChange}
+                    />
                 <OnlySelectComponent 
                     handleInputChange={handleInputChange} 
                     name="tipo"
                     value={selectvalue}
                     iterateList={Tipo} md="3" label="Tipo" 
                 />
+                <KeyboardDatePickerComponent 
+                    setInputs={setInputs} 
+                    valueDate={valueNascimento}
+                    label="Data de Nascimento"
+                    name="data_nascimento" />
                 <Autocomplete
                     style={{ width: 300, margin: '1rem'}}
                     id="combo-box-demo"
@@ -43,7 +62,6 @@ export const DadosPessoais = ({value2, nacionalidade, ListaCidade, valueCidade, 
                             : {...inputs})
                     )}
                     options={ListaEstados}
-                    inputValue={valueEstado}
                     getOptionLabel={(option) => option.nome}
                     getOptionSelected={(option, value) => option.nome === value.nome}
                     renderInput={(params) => 
@@ -77,11 +95,6 @@ export const DadosPessoais = ({value2, nacionalidade, ListaCidade, valueCidade, 
                     handleInputChange={handleInputChange} 
                     name="nacionalidade" 
                     md="3"/>
-                <DateCalendar 
-                    label="Data de Nascimento" 
-                    name="data_nascimento" 
-                    setInputs={setInputs} 
-                    value={valueNascimento} />
                 <OnlySelectComponent 
                     handleInputChange={handleInputChange} 
                     name="sexo" 

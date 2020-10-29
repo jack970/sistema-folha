@@ -149,7 +149,7 @@ const MultiStep = ({children, activeStep, setActiveStep, inputsTipo, setInputs})
               <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleNext}
+                  onClick={ handleNext }
                   className={classes.button}
                 >
                 { activeStep === steps.length - 1 ? "Finalizar" : 

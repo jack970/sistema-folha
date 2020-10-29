@@ -1,28 +1,28 @@
-import React from "react"
-import { KeyboardDatePicker } from "@material-ui/pickers";
+import React from "react";
+import DateFnsUtils from '@date-io/date-fns';
+import { ptBR } from "date-fns/locale";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { Box } from "@material-ui/core";
 
-const DatePickerField = ({ field, form, ...other }) => {
-    const currentError = form.errors[field.name];
-  
-    return (
+const KeyboardDatePickerComponent = ({ valueDate, setInputs, name, label }) => {
+
+  return (
+  <Box m={2}>
+    <MuiPickersUtilsProvider locale={ptBR} utils={DateFnsUtils}>
       <KeyboardDatePicker
         clearable
-        name={field.name}
-        value={field.value}
+        label={label}
+        inputVariant="outlined"
+        invalidDateMessage="Formato Inválido"
+        value={valueDate || ''}
+        placeholder="10/10/2018"
+        onChange={(date) => setInputs(inputs => ({ ...inputs, [name]: date }))}
         format="dd/MM/yyyy"
-        helperText={currentError}
-        error={Boolean(currentError)}
-        onError={error => {
-          // handle as a side effect
-          if (error !== currentError) {
-            form.setFieldError(field.name, error);
-          }
-        }}
-        // if you are using custom validation schema you probably want to pass `true` as third argument
-        onChange={date => form.setFieldValue(field.name, date, false)}
-        {...other}
+        maxDate={new Date()}
       />
-    );
-  };
+    </MuiPickersUtilsProvider>
+  </Box>
+  );
+}
 
-  export default DatePickerField
+export default KeyboardDatePickerComponent;
