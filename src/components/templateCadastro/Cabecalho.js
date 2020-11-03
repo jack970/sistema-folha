@@ -5,21 +5,17 @@ import { AccountCircle, ContactMail } from '@material-ui/icons/';
 import { DateCalendar, CheckBox, DualRowComponent, LegendField, OnlySelectComponent, Row, SingleComponent} from './RowComponent'
 import KeyboardDatePickerComponent from './DatePickerField';
 
-export const DadosPessoais = ({
-    value2, 
-    nacionalidade, 
-    ListaCidade, 
-    valueNascimento, 
-    setInputs, 
-    ListaEstados,
-    valueEstado, 
-    selectvalue, 
-    valueRaca, 
-    valueEscolaridade , 
-    valueEstadoCivil, 
-    valueSexo, 
-    handleInputChange}) => {
+export const DadosPessoais = ({ inputs, setInputs, handleInputChange, listUf, listCity }) => {
 
+    const { nome, 
+        tipo, 
+        data_nascimento, 
+        nacionalidade, 
+        estado_civil, 
+        raca, 
+        sexo, 
+        escolaridade } = inputs
+    
     const Tipo = ["Pessoa Física", "Pessoa Jurídica"]
     const Sexo = ["Masculino", "Feminino"]
     const EstadoCivil = ["Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)", "Separado(a)"]
@@ -38,30 +34,29 @@ export const DadosPessoais = ({
                     label="Nome"
                     startIcon={ <AccountCircle /> }
                     name="nome"
-                    value={value2}
+                    value={nome}
                     handleInputChange={handleInputChange}
                     />
                 <OnlySelectComponent 
                     handleInputChange={handleInputChange} 
                     name="tipo"
-                    value={selectvalue}
+                    value={tipo}
                     iterateList={Tipo} md="3" label="Tipo" 
                 />
                 <KeyboardDatePickerComponent 
                     setInputs={setInputs} 
-                    valueDate={valueNascimento}
+                    valueDate={data_nascimento}
                     label="Data de Nascimento"
                     name="data_nascimento" />
                 <Autocomplete
                     style={{ width: 300, margin: '1rem'}}
-                    id="combo-box-demo"
                     onChange={(e,v) => 
                         setInputs(inputs => ( 
                             v ? 
                             {...inputs, "estado_nome": v.nome, "estado_id": v.id} 
                             : {...inputs})
                     )}
-                    options={ListaEstados}
+                    options={listUf}
                     getOptionLabel={(option) => option.nome}
                     getOptionSelected={(option, value) => option.nome === value.nome}
                     renderInput={(params) => 
@@ -73,14 +68,13 @@ export const DadosPessoais = ({
                 />
                 <Autocomplete
                     style={{ width: 300, margin: '1rem'}}
-                    id="combo-box-demo"
                     onChange={(e,v) => 
                         setInputs(inputs => ( 
                             v ? 
                             {...inputs,"cidade": v.nome} 
                             : {...inputs})
                     )}
-                    options={ListaCidade}
+                    options={listCity}
                     getOptionLabel={(option) => option.nome}
                     getOptionSelected={(option, value) => option.nome === value.nome}
                     renderInput={(params) => 
@@ -98,28 +92,28 @@ export const DadosPessoais = ({
                 <OnlySelectComponent 
                     handleInputChange={handleInputChange} 
                     name="sexo" 
-                    value={valueSexo} 
+                    value={sexo} 
                     iterateList={Sexo} 
                     md="3" 
                     label="Sexo" />
                 <OnlySelectComponent   
                     handleInputChange={handleInputChange} 
                     name="estado_civil" 
-                    value={valueEstadoCivil} 
+                    value={estado_civil} 
                     iterateList={EstadoCivil} 
                     md="3" 
                     label="Estado Civil" />
                 <OnlySelectComponent 
                     handleInputChange={handleInputChange} 
                     name="escolaridade" 
-                    value={valueEscolaridade} 
+                    value={escolaridade} 
                     iterateList={Escolaridade} 
                     md="3" 
                     label="Escolaridade" />
                 <OnlySelectComponent 
                     handleInputChange={handleInputChange} 
                     name="raca" 
-                    value={valueRaca} 
+                    value={raca} 
                     iterateList={CorRaca} 
                     md="3" 
                     label="Raça / Cor" />
@@ -128,60 +122,62 @@ export const DadosPessoais = ({
     )
 }
 
-export const TituloEleitoral = ({ titulonumero, titulozona, titulosessao, handleInputChange}) => {
+export const TituloEleitoral = ({ inputs, handleInputChange}) => {
+    const { titulo_numero, titulo_sessao, titulo_zona} = inputs
     return(
         <LegendField title="Título Eleitoral" titleSize="h3">
             <Row>
-                <SingleComponent label="Título Número" name="titulo_numero" value={titulonumero} handleInputChange={handleInputChange} md="4"/> {/* Título Eleitoral */}
-                <SingleComponent label="Título Zona" name="titulo_zona"  value={titulozona} handleInputChange={handleInputChange} md="4"/> {/* Título Eleitoral */}
-                <SingleComponent label="Título sessão" name="titulo_sessao"  value={titulosessao} handleInputChange={handleInputChange} md="4"/> {/* Título Eleitoral */}
+                <SingleComponent label="Título Número" name="titulo_numero" value={titulo_numero} handleInputChange={handleInputChange} md="4"/> {/* Título Eleitoral */}
+                <SingleComponent label="Título Zona" name="titulo_zona"  value={titulo_zona} handleInputChange={handleInputChange} md="4"/> {/* Título Eleitoral */}
+                <SingleComponent label="Título sessão" name="titulo_sessao"  value={titulo_sessao} handleInputChange={handleInputChange} md="4"/> {/* Título Eleitoral */}
             </Row>
         </LegendField>
     )
 }
 
-export const Certidao = ({handleInputChange, valueTipoCertidao, termocertidao, folhacertidao, livrocertidao, matriculacertidao }) => {
+export const Certidao = ({inputs, handleInputChange }) => {
+    const { tipo_certidao, termo_certidao, folha_certidao, livro_certidao, matricula_certidao} = inputs
     const TipoCertidao = ["Certidão de Nascimento", "Certidão de Casamento", "Certidão de Óbito", "Certidão de Registro de Imóveis"]
     return(
         <LegendField title="Certidão" titleSize="h3">
             <Row>
-                <OnlySelectComponent handleInputChange={handleInputChange} 
-                    name="tipo_certidao" value={valueTipoCertidao} iterateList={TipoCertidao} md="5" label="Tipo de Certidão" /> {/*Certidão */}
-                <SingleComponent name="termo_certidao" handleInputChange={handleInputChange} value={termocertidao} label="Termo de Certidão" md="4"/> {/* Certidão */}
-                <SingleComponent name="folha_certidao" handleInputChange={handleInputChange} value={folhacertidao} label="Folha de Certidão" md="4"/> {/* Certidão */}
-                <SingleComponent name="livro_certidao" handleInputChange={handleInputChange} value={livrocertidao} label="Livro de Certidão" md="4"/>{/* Certidão */}
-                <SingleComponent name="matricula_certidao" handleInputChange={handleInputChange}value={matriculacertidao} label="Matrícula da Certidão" md="4"/> {/* Certidão */}
+                <OnlySelectComponent handleInputChange={handleInputChange} name="tipo_certidao" value={tipo_certidao} iterateList={TipoCertidao} md="5" label="Tipo de Certidão" /> {/*Certidão */}
+                <SingleComponent name="termo_certidao" handleInputChange={handleInputChange} value={termo_certidao} label="Termo de Certidão" md="4"/> {/* Certidão */}
+                <SingleComponent name="folha_certidao" handleInputChange={handleInputChange} value={folha_certidao} label="Folha de Certidão" md="4"/> {/* Certidão */}
+                <SingleComponent name="livro_certidao" handleInputChange={handleInputChange} value={livro_certidao} label="Livro de Certidão" md="4"/>{/* Certidão */}
+                <SingleComponent name="matricula_certidao" handleInputChange={handleInputChange}value={matricula_certidao} label="Matrícula da Certidão" md="4"/> {/* Certidão */}
             </Row>
         </LegendField>
     )
 }
 
-export const CTPS = ({handleInputChange, numeropis, numeroctps, ufctps, seriectps, emissaoctps, localctps}) => {
+export const CTPS = ({inputs, handleInputChange}) => {
+    const { numero_pis, numero_ctps, uf_ctps, serie_ctps, emissao_ctps, local_ctps} = inputs
     return(
         <LegendField title="CTPS" titleSize="h3">
             <Row>
                 <SingleComponent name="numero_pis" 
                                 handleInputChange={handleInputChange}
-                                value={numeropis}
+                                value={numero_pis}
                                 label="Número PIS / PASEP" md="4"/> {/* CTPS */}
                 <SingleComponent name="numero_ctps"
-                                value={numeroctps}
+                                value={numero_ctps}
                                 handleInputChange={handleInputChange}
                                 label="Número CTPS" md="4"/> {/* CTPS */}
                 <SingleComponent name="uf_ctps"
-                                value={ufctps}
+                                value={uf_ctps}
                                 handleInputChange={handleInputChange}
                                 label="UF CTPS" md="4"/> {/* CTPS */}
                 <SingleComponent name="serie_ctps" 
-                                value={seriectps}
+                                value={serie_ctps}
                                 handleInputChange={handleInputChange}
                                 label="Série da CTPS" md="4"/> {/* CTPS */}
                 <SingleComponent name="emissao_ctps" 
-                                value={emissaoctps}
+                                value={emissao_ctps}
                                 handleInputChange={handleInputChange}
                                 label="Data de Emissão da CTPS" md="4"/> {/* CTPS */}
                 <SingleComponent name="local_ctps"
-                                value={localctps}
+                                value={local_ctps}
                                 handleInputChange={handleInputChange}
                                 label="Local de Expedição da CTPS" md="4"/> {/* CTPS */}
             </Row>
@@ -189,34 +185,36 @@ export const CTPS = ({handleInputChange, numeropis, numeroctps, ufctps, seriectp
     )
 }
 
-export const RG = ({handleInputChange, setInputs, rgnumero, rgorgao, rguf, valueRgExpedicao}) => {
+export const RG = ({inputs, handleInputChange, setInputs}) => {
+    const { rg_numero, rg_orgao, rg_uf, rg_expedicao} = inputs
     return(
         <LegendField title="RG" titleSize="h3">
             <Row>
                 <SingleComponent name="rg_numero"
-                                value={rgnumero}
+                                value={rg_numero}
                                 handleInputChange={handleInputChange}
                                 label="Número RG" md="4"/>
                 <SingleComponent label="RG Órgão"
                                     name="rg_orgao"
-                                    value={rgorgao}
+                                    value={rg_orgao}
                                     handleInputChange={handleInputChange}
                                     md="4"/> 
                 <SingleComponent label="RG UF"
                                     name="rg_uf"
-                                    value={rguf}
+                                    value={rg_uf}
                                     handleInputChange={handleInputChange}
                                     md="4"/>
                 <DateCalendar label="Data de Expedição" 
                             name="rg_expedicao" 
                             setInputs={setInputs} 
-                            value={valueRgExpedicao}/>
+                            value={rg_expedicao}/>
             </Row>
         </LegendField>
     )
 }
 
-export const Filiacao = ({nome_pai, nome_mae, cpf_pai, handleInputChange, cpf_mae}) => {
+export const Filiacao = ({inputs, handleInputChange}) => {
+    const { nome_pai, nome_mae, cpf_pai, cpf_mae} = inputs
     return(
         <LegendField title="Filiação" titleSize="h3" >
             <Row>
@@ -229,7 +227,8 @@ export const Filiacao = ({nome_pai, nome_mae, cpf_pai, handleInputChange, cpf_ma
     )
 }
 
-export const OutrosDados = ({handleInputChange, reservista, nis, sus, cnh, valueTipoSanguineo}) => {
+export const OutrosDados = ({inputs, handleInputChange}) => {
+    const { reservista, cnh, sus, tipo_sanguineo, nis} = inputs
     const TipoSanguineo = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
     const Opcoes = [
         {
@@ -250,7 +249,7 @@ export const OutrosDados = ({handleInputChange, reservista, nis, sus, cnh, value
                 <SingleComponent label="SUS" value={sus} name="sus" handleInputChange={handleInputChange} md="4"/>
                 <CheckBox handleInputChange={handleInputChange} iterateList={Opcoes} label="É doador de Órgãos?" name="doador_orgaos"/>
                 <OnlySelectComponent handleInputChange={handleInputChange} 
-                    name="tipo_sanguineo" value={valueTipoSanguineo} iterateList={TipoSanguineo} md="2" label="Tipo Sanguíneo" />
+                    name="tipo_sanguineo" value={tipo_sanguineo} iterateList={TipoSanguineo} md="2" label="Tipo Sanguíneo" />
             </Row>
         </ LegendField>
     )
@@ -265,8 +264,11 @@ export const Footer = ({ handleInputChange, selectValue }) => {
         readOnly2={true}
         firstlabel="Data de Cadastro" 
         secondlabel="Última Alteração">
-            <OnlySelectComponent handleInputChange={handleInputChange} 
-            name="situacao" value={selectValue} iterateList={Status} 
+            <OnlySelectComponent 
+            handleInputChange={handleInputChange} 
+            name="situacao" 
+            value={selectValue}
+            iterateList={Status} 
             md="3" label="Situação" />
         </DualRowComponent>
     </LegendField>

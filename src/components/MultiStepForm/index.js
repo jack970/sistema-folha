@@ -27,13 +27,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Dados Pessoais", "Título Eleitoral", "Certidão", "CTPS", "RG", "Filiação", "Outros Dados", "Pessoa Física"];
+  return ["Dados Pessoais", "Título Eleitoral", "Certidão", "CTPS", "RG", "Filiação", "Outros Dados", "Pessoa Física", "Submit"];
 }
 
-const MultiStep = ({children, activeStep, setActiveStep, inputsTipo, setInputs}) => {
+const MultiStep = ({children, activeStep, setActiveStep, inputsTipo, inputs, setInputs}) => {
   const classes = useStyles();
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
+
+  const handleSubmit = () => {
+    console.log(inputs.escolaridade)
+  }
 
   const isStepOptional = (step) => {
     return null;
@@ -119,10 +123,8 @@ const MultiStep = ({children, activeStep, setActiveStep, inputsTipo, setInputs})
           </div>
         ) : (
           <div>
-            
-               {children}
-            
-            <div>
+          {children}  
+          <div>
               <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
@@ -146,16 +148,24 @@ const MultiStep = ({children, activeStep, setActiveStep, inputsTipo, setInputs})
                   Pular
                 </Button>
               )}
+              { activeStep === steps.length - 1 ?
               <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={ handleSubmit }
+                  className={classes.button}
+                >
+                  Finalizar
+                </Button> :
+                <Button
                   variant="contained"
                   color="primary"
                   onClick={ handleNext }
                   className={classes.button}
                 >
-                { activeStep === steps.length - 1 ? "Finalizar" : 
-                    "Avançar"
+                  Avançar
+                </Button>
                 }
-              </Button>
             </div>
           </div>
         )}

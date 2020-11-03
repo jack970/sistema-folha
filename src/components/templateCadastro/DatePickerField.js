@@ -14,7 +14,7 @@ const KeyboardDatePickerComponent = ({ valueDate, setInputs, name, label }) => {
         label={label}
         inputVariant="outlined"
         invalidDateMessage="Formato Inválido"
-        value={valueDate || ''}
+        value={valueDate}
         placeholder="10/10/2018"
         onChange={(date) => setInputs(inputs => ({ ...inputs, [name]: date }))}
         format="dd/MM/yyyy"

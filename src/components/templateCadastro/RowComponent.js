@@ -5,7 +5,7 @@ import pt from 'date-fns/locale/pt-BR'
 import { Box, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core'
 registerLocale("pt-BR", pt)
 
-export const Row = ({children}) => <div className={`row`}> {children} </div>
+export const Row = ({children}) => <div className="row"> {children} </div>
 
 export const SingleComponent = ({startIcon, label, name, value, handleInputChange, readOnly}) => {
     return(
@@ -14,7 +14,7 @@ export const SingleComponent = ({startIcon, label, name, value, handleInputChang
          variant="outlined" 
          label={label} 
          name={name} 
-         value={value || ""} 
+         value={value} 
          onChange={handleInputChange} 
          InputProps={{
             startAdornment: startIcon
@@ -118,7 +118,7 @@ export const Label = ({children, label}) => <label><b>{label}</b>{children}</lab
 
 export const CheckBox = ({name, iterateList, handleInputChange, value, label}) =>
 <Box m={2}>
-    <FormControl row component="fieldset">
+    <FormControl component="fieldset">
         <RadioGroup aria-label={label} name={name} value={value} onChange={handleInputChange}>
             <FormLabel component="legend">{label}</FormLabel>
             {iterateList.map((item, id) => 
