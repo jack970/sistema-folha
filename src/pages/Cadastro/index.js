@@ -31,33 +31,30 @@ const Cadastro = () => {
 
     const handleInputChange = (e) => {
         const {value, name} = e.target
-        setInputs(inputs => ({...inputs, [name]: value})); // Altera o valor ao digitar
+        setInputs(inputs => ({...inputs, [name]: value})); // Altera value do name em inputs ao digitar
     }
-    const props = { inputs, setInputs, handleInputChange, listUf, listCity}
 
+    const props = { inputs, setInputs, handleInputChange, listUf, listCity}
+    const propsMultiStep = { inputs, setInputs, activeStep, setActiveStep }
+    
   return (
     <Main {...headerProps}>
         <div className="container">
-            <MultiStep
-                setInputs={setInputs}
-                inputsTipo={inputs.tipo}
-                activeStep={activeStep}
-                setActiveStep={setActiveStep}
-                inputs={inputs}
-            >
-            {{
-                // Declaração de switch case
-                0: <DadosPessoais {...props} />,
-                1: <TituloEleitoral {...props}/>,
-                2: <Certidao {...props} />,
-                3: <CTPS {...props} />,
-                4: <RG {...props}/>, 
-                5: <Filiacao {...props}/>,
-                6: <OutrosDados {...props}/>,
-                7: inputs.tipo === "Pessoa Jurídica" ?                         
-                <TableJuridica {...props}/> : 
-                <TableFisica {...props} /> || "Passo Desconhecido"
-                }[activeStep]} 
+            <MultiStep {...propsMultiStep}>
+                {{
+                    // Declaração de switch case
+                    0: <DadosPessoais {...props} />,
+                    1: <TituloEleitoral {...props}/>,
+                    2: <Certidao {...props} />,
+                    3: <CTPS {...props} />,
+                    4: <RG {...props}/>, 
+                    5: <Filiacao {...props}/>,
+                    6: <OutrosDados {...props}/>,
+                    7: inputs.tipo === "Pessoa Jurídica" 
+                        ?   <TableJuridica {...props}/> 
+                        :   <TableFisica {...props} /> 
+                        || "Passo Desconhecido"
+                    }[activeStep]} 
                 <div className="panel-body">
                     <Footer handleInputChange={handleInputChange} selectValue={inputs.situacao}/>
                 </div>

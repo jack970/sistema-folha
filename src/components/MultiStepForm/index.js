@@ -27,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Dados Pessoais", "Título Eleitoral", "Certidão", "CTPS", "RG", "Filiação", "Outros Dados", "Pessoa Física", "Submit"];
+  return ["Dados Pessoais", "Título Eleitoral", "Certidão", "CTPS", "RG", "Filiação", "Outros Dados", "Pessoa Física"];
 }
 
-const MultiStep = ({children, activeStep, setActiveStep, inputsTipo, inputs, setInputs}) => {
+const MultiStep = ({children, activeStep, setActiveStep, inputs, setInputs}) => {
   const classes = useStyles();
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
@@ -93,7 +93,8 @@ const MultiStep = ({children, activeStep, setActiveStep, inputsTipo, inputs, set
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
-          if (inputsTipo !== steps[7]) {
+          const inputsTipo = inputs.tipo
+          if ( inputsTipo !== steps[7]) {
             steps[7] = "Pessoa Jurídica"
           }
           if (isStepOptional(index)) {
