@@ -15,48 +15,37 @@ const headerProps = {
     subtitle: 'Veja as sua seguintes informações neste portal.'
 }
 
+const initialState = {
+    tipo_folha: 'Normal',
+    final: new Date(),
+    inicio: new Date(),
+    ano: new Date()
+}
+
 const Painel = () => {
-    const startDate = new Date()
-    const endDate = new Date()
-    const [inputs, setInputs] = useState({
-        tipo_folha: 'Normal',
-        final: endDate,
-        inicio: startDate,
-        ano: new Date()
-    });
+    const [inputs, setInputs] = useState(initialState);
     const [ info, setInfo ] = useState([])
     const [dados, setDados] = useState([])
 
     useEffect(() => {
-        api.get('painel').then(response => {
-            setInfo(response.data)
-            
-        }).catch(err => {
-            console.log(err)
-        })
-
+        const responsePainel = async() => {
+            const response = await api.InfoPainel()
+            setInfo(response)
+        } 
+        responsePainel()
     }, [])
 
-    const handleSendForm = e => {
+    const handleSendForm = async e => {
         e.preventDefault()
-
-            api.post("contra-cheque", inputs)
-                .then(response => {
-                    try {
-                        if(response.data === "Nada foi Encontrado!"){
-                            setDados({ error: response.data})
-                        }
-                        else{
-                            setDados(response.data)
-                        }
-                    }catch(e) {console.log(e)}
-                }).catch(error => {
-                    setDados({
-                        error:
-                          "Ocorreu algum erro na busca!"
-                      });
-                })
+        const response = await api.PegaContraCheque(inputs)
+        
+        if(response === "Nada foi Encontrado!"){
+            setDados({ error: response})
         }
+        else{
+            setDados(response)
+        }
+    }
     return(
         <Main {...headerProps} >
             <S.Container className="container">

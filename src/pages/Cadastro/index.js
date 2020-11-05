@@ -14,7 +14,7 @@ import GetCityState from '../../components/templateCadastro/services';
 import TableFisica from '../../components/templateCadastro/TableFisica';
 import TableJuridica from '../../components/templateCadastro/TableJuridica';
 import { DadosPessoais } from "../../components/templateCadastro/Cabecalho";
-import { initalState } from '../../components/templateCadastro/InitialState';
+import { initialState } from '../../components/templateCadastro/InitialState';
 
 const headerProps = {
     icon: 'fa fa-product-hunt',
@@ -24,7 +24,7 @@ const headerProps = {
 
 const Cadastro = () => {
     const [activeStep, setActiveStep] = useState(0); // Cria qtdade de passos
-    const [inputs , setInputs] = useState(initalState) // Pega Formulário inicial
+    const [inputs , setInputs] = useState(initialState) // Pega Formulário inicial
 
     const uf = inputs.estado_id // Pega o estado_id do form
     const { listUf, listCity } = GetCityState(uf) // Envia o estado_id para função e chama as listas de estados e cidades.
@@ -41,8 +41,7 @@ const Cadastro = () => {
     <Main {...headerProps}>
         <div className="container">
             <MultiStep {...propsMultiStep}>
-                {{
-                    // Declaração de switch case
+                {{ // Declaração de switch case
                     0: <DadosPessoais {...props} />,
                     1: <TituloEleitoral {...props}/>,
                     2: <Certidao {...props} />,
@@ -54,7 +53,7 @@ const Cadastro = () => {
                         ?   <TableJuridica {...props}/> 
                         :   <TableFisica {...props} /> 
                         || "Passo Desconhecido"
-                    }[activeStep]} 
+                }[activeStep]} 
                 <div className="panel-body">
                     <Footer handleInputChange={handleInputChange} selectValue={inputs.situacao}/>
                 </div>

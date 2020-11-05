@@ -10,7 +10,7 @@ const Login = withRouter(({ history }) => {
     const { inputs, setInputs, handleInputChange} = UseSignUpForm()
     const [ selectOption, setOption ] = useState(true)
 
-    const handleSignIn = e => {
+    const handleSignIn = async e => {
         e.preventDefault();
         const { CPF, senha, matricula } = inputs
         
@@ -18,16 +18,13 @@ const Login = withRouter(({ history }) => {
           setInputs({ error: "Preencha os campos para continuar!" });
         } else {
           try {
-            api.post("login", inputs)
-                .then(res => {
-                  if(res.data === "Senha ou Usuários Incorretos") {
-                    setInputs({error: res.data})
-                }else {
-                    login(res.data.accessToken, res.data.refreshToken)
-                    history.push(`/painel`)
-                }
-              })
-
+            const response = await api.SignIn(inputs)
+              if(response === "Senha ou Usuários Incorretos") {
+                setInputs({error: response})
+              }else {
+                  login(response.accessToken, response.refreshToken)
+                  history.push(`/painel`)
+              }
           } catch (err) {
             setInputs({
               error:

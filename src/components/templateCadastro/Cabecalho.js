@@ -1,4 +1,4 @@
-import { TextField } from '@material-ui/core'
+import { FormControl, TextField } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import React from 'react'
 import { AccountCircle, ContactMail } from '@material-ui/icons/';
@@ -23,102 +23,105 @@ export const DadosPessoais = ({ inputs, setInputs, handleInputChange, listUf, li
     const CorRaca = ["Branco(a)", "Pardo(a)", "Preto(a)", "Amarelo(a)", "Indígena"]
    
     return(
-        <LegendField title="Dados Pessoais" titleSize="h3">
-            <Row>
-                <SingleComponent 
-                    label="Código"
-                    startIcon={ <ContactMail /> }
-                    readOnly={true} 
+        <FormControl autoComplete="off">
+            <LegendField title="Dados Pessoais" titleSize="h3">
+                <Row>
+                    <SingleComponent 
+                        label="Código"
+                        startIcon={ <ContactMail /> }
+                        readOnly={true} 
+                        />
+                    <SingleComponent 
+                        label="Nome"
+                        required={true}
+                        startIcon={ <AccountCircle /> }
+                        name="nome"
+                        value={nome}
+                        handleInputChange={handleInputChange}
+                        />
+                    <OnlySelectComponent 
+                        handleInputChange={handleInputChange} 
+                        name="tipo"
+                        value={tipo}
+                        iterateList={Tipo} md="3" label="Tipo" 
                     />
-                <SingleComponent 
-                    label="Nome"
-                    startIcon={ <AccountCircle /> }
-                    name="nome"
-                    value={nome}
-                    handleInputChange={handleInputChange}
+                    <KeyboardDatePickerComponent 
+                        setInputs={setInputs} 
+                        valueDate={data_nascimento}
+                        label="Data de Nascimento"
+                        name="data_nascimento" />
+                    <Autocomplete
+                        style={{ width: 300, margin: '1rem'}}
+                        onChange={(e,v) => 
+                            setInputs(inputs => ( 
+                                v ? 
+                                {...inputs, "estado_nome": v.nome, "estado_id": v.id} 
+                                : {...inputs})
+                        )}
+                        options={listUf}
+                        getOptionLabel={(option) => option.nome}
+                        getOptionSelected={(option, value) => option.nome === value.nome}
+                        renderInput={(params) => 
+                            <TextField 
+                                {...params} 
+                                label="Selecione o Estado" 
+                                variant="outlined" 
+                            />}
                     />
-                <OnlySelectComponent 
-                    handleInputChange={handleInputChange} 
-                    name="tipo"
-                    value={tipo}
-                    iterateList={Tipo} md="3" label="Tipo" 
-                />
-                <KeyboardDatePickerComponent 
-                    setInputs={setInputs} 
-                    valueDate={data_nascimento}
-                    label="Data de Nascimento"
-                    name="data_nascimento" />
-                <Autocomplete
-                    style={{ width: 300, margin: '1rem'}}
-                    onChange={(e,v) => 
-                        setInputs(inputs => ( 
-                            v ? 
-                            {...inputs, "estado_nome": v.nome, "estado_id": v.id} 
-                            : {...inputs})
-                    )}
-                    options={listUf}
-                    getOptionLabel={(option) => option.nome}
-                    getOptionSelected={(option, value) => option.nome === value.nome}
-                    renderInput={(params) => 
-                        <TextField 
-                            {...params} 
-                            label="Selecione o Estado" 
-                            variant="outlined" 
-                        />}
-                />
-                <Autocomplete
-                    style={{ width: 300, margin: '1rem'}}
-                    onChange={(e,v) => 
-                        setInputs(inputs => ( 
-                            v ? 
-                            {...inputs,"cidade": v.nome} 
-                            : {...inputs})
-                    )}
-                    options={listCity}
-                    getOptionLabel={(option) => option.nome}
-                    getOptionSelected={(option, value) => option.nome === value.nome}
-                    renderInput={(params) => 
-                        <TextField 
-                            {...params} 
-                            label="Selecione a Cidade" 
-                            variant="outlined" />}
-                />
-                <SingleComponent 
-                    label="Nacionalidade" 
-                    value={nacionalidade} 
-                    handleInputChange={handleInputChange} 
-                    name="nacionalidade" 
-                    md="3"/>
-                <OnlySelectComponent 
-                    handleInputChange={handleInputChange} 
-                    name="sexo" 
-                    value={sexo} 
-                    iterateList={Sexo} 
-                    md="3" 
-                    label="Sexo" />
-                <OnlySelectComponent   
-                    handleInputChange={handleInputChange} 
-                    name="estado_civil" 
-                    value={estado_civil} 
-                    iterateList={EstadoCivil} 
-                    md="3" 
-                    label="Estado Civil" />
-                <OnlySelectComponent 
-                    handleInputChange={handleInputChange} 
-                    name="escolaridade" 
-                    value={escolaridade} 
-                    iterateList={Escolaridade} 
-                    md="3" 
-                    label="Escolaridade" />
-                <OnlySelectComponent 
-                    handleInputChange={handleInputChange} 
-                    name="raca" 
-                    value={raca} 
-                    iterateList={CorRaca} 
-                    md="3" 
-                    label="Raça / Cor" />
-            </Row>
-        </LegendField>
+                    <Autocomplete
+                        style={{ width: 300, margin: '1rem'}}
+                        onChange={(e,v) => 
+                            setInputs(inputs => ( 
+                                v ? 
+                                {...inputs,"cidade": v.nome} 
+                                : {...inputs})
+                        )}
+                        options={listCity}
+                        getOptionLabel={(option) => option.nome}
+                        getOptionSelected={(option, value) => option.nome === value.nome}
+                        renderInput={(params) => 
+                            <TextField 
+                                {...params} 
+                                label="Selecione a Cidade" 
+                                variant="outlined" />}
+                    />
+                    <SingleComponent 
+                        label="Nacionalidade" 
+                        value={nacionalidade} 
+                        handleInputChange={handleInputChange} 
+                        name="nacionalidade" 
+                        md="3"/>
+                    <OnlySelectComponent 
+                        handleInputChange={handleInputChange} 
+                        name="sexo" 
+                        value={sexo} 
+                        iterateList={Sexo} 
+                        md="3" 
+                        label="Sexo" />
+                    <OnlySelectComponent   
+                        handleInputChange={handleInputChange} 
+                        name="estado_civil" 
+                        value={estado_civil} 
+                        iterateList={EstadoCivil} 
+                        md="3" 
+                        label="Estado Civil" />
+                    <OnlySelectComponent 
+                        handleInputChange={handleInputChange} 
+                        name="escolaridade" 
+                        value={escolaridade} 
+                        iterateList={Escolaridade} 
+                        md="3" 
+                        label="Escolaridade" />
+                    <OnlySelectComponent 
+                        handleInputChange={handleInputChange} 
+                        name="raca" 
+                        value={raca} 
+                        iterateList={CorRaca} 
+                        md="3" 
+                        label="Raça / Cor" />
+                </Row>
+            </LegendField>
+        </FormControl>
     )
 }
 

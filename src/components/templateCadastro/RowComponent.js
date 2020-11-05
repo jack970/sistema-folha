@@ -7,7 +7,7 @@ registerLocale("pt-BR", pt)
 
 export const Row = ({children}) => <div className="row"> {children} </div>
 
-export const SingleComponent = ({startIcon, label, name, value, handleInputChange, readOnly}) => {
+export const SingleComponent = ({startIcon, required=false, label, name, value, handleInputChange, readOnly}) => {
     return(
     <Box m={2}>
         <TextField fullWidth
@@ -15,11 +15,12 @@ export const SingleComponent = ({startIcon, label, name, value, handleInputChang
          label={label} 
          name={name} 
          value={value} 
+         required={required}
          onChange={handleInputChange} 
          InputProps={{
             startAdornment: startIcon
           }}
-         required readOnly={readOnly}/>  
+         readOnly={readOnly}/>  
     </Box>
     )
 }
@@ -117,12 +118,12 @@ export const LegendField = ({children, title, titleSize=""}) =>
 export const Label = ({children, label}) => <label><b>{label}</b>{children}</label>
 
 export const CheckBox = ({name, iterateList, handleInputChange, value, label}) =>
-<Box m={2}>
-    <FormControl component="fieldset">
-        <RadioGroup aria-label={label} name={name} value={value} onChange={handleInputChange}>
-            <FormLabel component="legend">{label}</FormLabel>
-            {iterateList.map((item, id) => 
-                <FormControlLabel key={id} value={item.value} control={<Radio />} label={item.label} />)}
-        </RadioGroup>
-    </FormControl>                        
-</Box>
+    <Box m={2}>
+        <FormControl component="fieldset">
+            <RadioGroup aria-label={label} name={name} value={value} onChange={handleInputChange}>
+                <FormLabel component="legend">{label}</FormLabel>
+                {iterateList.map((item, id) => 
+                    <FormControlLabel key={id} value={item.value} control={<Radio />} label={item.label} />)}
+            </RadioGroup>
+        </FormControl>                        
+    </Box>

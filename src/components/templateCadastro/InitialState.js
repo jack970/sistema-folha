@@ -1,4 +1,4 @@
-export const initalState = {
+export const initialState = {
     nome: "",
     cargo: "colaborador",
     tipo: "Pessoa Física",
