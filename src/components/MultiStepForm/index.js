@@ -22,6 +22,7 @@ const MultiStep = ({children, activeStep, setActiveStep, inputs, setInputs}) => 
   }
 
   const handleNext = () => {
+    //se um input na tela estiver vazio, não avançará
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -32,7 +33,7 @@ const MultiStep = ({children, activeStep, setActiveStep, inputs, setInputs}) => 
   const handleReset = () => {
     setActiveStep(0);
   };
-  
+  console.log(inputs)
   return (
     <div className={classes.root}>
       <h1 className={classes.title}>Cadastro Único</h1>

@@ -7,20 +7,23 @@ registerLocale("pt-BR", pt)
 
 export const Row = ({children}) => <div className="row"> {children} </div>
 
-export const SingleComponent = ({startIcon, required=false, label, name, value, handleInputChange, readOnly}) => {
+export const SingleComponent = ({startIcon, helperText, error=false, label, name, value, handleInputChange, required=true, readOnly, otherThings}) => {
     return(
     <Box m={2}>
         <TextField fullWidth
-         variant="outlined" 
-         label={label} 
-         name={name} 
-         value={value} 
-         required={required}
-         onChange={handleInputChange} 
-         InputProps={{
+            variant="outlined"
+            required={required}
+            label={label} 
+            name={name}
+            error={error}
+            helperText={helperText}
+            value={value}
+            onChange={handleInputChange} 
+            InputProps={{
             startAdornment: startIcon
-          }}
-         readOnly={readOnly}/>  
+            }}
+            {...otherThings}
+            readOnly={readOnly}/>  
     </Box>
     )
 }
@@ -90,15 +93,18 @@ export const Button = ({label, style={}, handleButtonClick}) =>
         <button style={style} onClick={handleButtonClick} type="button" className="btn btn-primary form-control">{label}</button>
     </div>
 
-export const OnlySelectComponent = ({iterateList, label, name, handleInputChange, value}) => {
+export const OnlySelectComponent = ({iterateList, required=true, label, name, handleInputChange, value}) => {
     return(
     <Box m={2}>
         <FormControl required variant="outlined">
                 <InputLabel>{label}</InputLabel>
                 <Select
+                    required={required}
                     style={{ width: "10rem"}} 
-                    label={label} value={value} 
-                    name={name} onChange={handleInputChange}
+                    label={label} 
+                    value={value} 
+                    name={name} 
+                    onChange={handleInputChange}
                     >
                     <MenuItem value=""></MenuItem>
                     {iterateList.map((value, key) => 

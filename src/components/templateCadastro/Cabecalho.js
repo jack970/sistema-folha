@@ -1,11 +1,16 @@
-import { FormControl, TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import React from 'react'
 import { AccountCircle, ContactMail } from '@material-ui/icons/';
 import { DateCalendar, CheckBox, DualRowComponent, LegendField, OnlySelectComponent, Row, SingleComponent} from './RowComponent'
 import KeyboardDatePickerComponent from './DatePickerField';
+import GoogleMaps from './AutoCompleteLocation';
 
 export const DadosPessoais = ({ inputs, setInputs, handleInputChange, listUf, listCity }) => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log("deu Certo!")
+    }
 
     const { nome, 
         tipo, 
@@ -15,26 +20,28 @@ export const DadosPessoais = ({ inputs, setInputs, handleInputChange, listUf, li
         raca, 
         sexo, 
         escolaridade } = inputs
-    
     const Tipo = ["Pessoa Física", "Pessoa Jurídica"]
     const Sexo = ["Masculino", "Feminino"]
     const EstadoCivil = ["Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)", "Separado(a)"]
     const Escolaridade = ["Não sabe ler/escrever", "Alfabetizado", "1ª Grau completo", "2ª Grau completo", "1ª Grau Incompleto", "2ª Grau Incompleto", "Superior Incompleto", "Superior Completo", "Especialização/Residência", "Mestrado", "Doutorado"]
     const CorRaca = ["Branco(a)", "Pardo(a)", "Preto(a)", "Amarelo(a)", "Indígena"]
-   
+    console.log(listUf, listCity)
     return(
-        <FormControl autoComplete="off">
+        <form onSubmit={handleSubmit} autoComplete="off">
             <LegendField title="Dados Pessoais" titleSize="h3">
                 <Row>
-                    <SingleComponent 
+                    <GoogleMaps />
+                    <SingleComponent
                         label="Código"
+                        required={false}
                         startIcon={ <ContactMail /> }
                         readOnly={true} 
                         />
                     <SingleComponent 
                         label="Nome"
-                        required={true}
                         startIcon={ <AccountCircle /> }
+                        error={!inputs.nome && true}
+                        helperText={!inputs.nome && "Preencha o campo!"}
                         name="nome"
                         value={nome}
                         handleInputChange={handleInputChange}
@@ -88,7 +95,7 @@ export const DadosPessoais = ({ inputs, setInputs, handleInputChange, listUf, li
                     <SingleComponent 
                         label="Nacionalidade" 
                         value={nacionalidade} 
-                        handleInputChange={handleInputChange} 
+                        handleInputChange={handleInputChange}
                         name="nacionalidade" 
                         md="3"/>
                     <OnlySelectComponent 
@@ -120,8 +127,9 @@ export const DadosPessoais = ({ inputs, setInputs, handleInputChange, listUf, li
                         md="3" 
                         label="Raça / Cor" />
                 </Row>
+                <button>Avançar</button>
             </LegendField>
-        </FormControl>
+        </form>
     )
 }
 
