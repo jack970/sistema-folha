@@ -2,7 +2,9 @@ import React from 'react'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import pt from 'date-fns/locale/pt-BR'
+import Button from "@material-ui/core/Button";
 import { Box, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core'
+import { useStyles } from '../MultiStepForm/styledStepForm'
 registerLocale("pt-BR", pt)
 
 export const Row = ({children}) => <div className="row"> {children} </div>
@@ -88,10 +90,6 @@ export const DualRowComponent = ({
         {children}
     </Row>
 
-export const Button = ({label, style={}, handleButtonClick}) => 
-    <div>
-        <button style={style} onClick={handleButtonClick} type="button" className="btn btn-primary form-control">{label}</button>
-    </div>
 
 export const OnlySelectComponent = ({iterateList, required=true, label, name, handleInputChange, value}) => {
     return(
@@ -126,10 +124,32 @@ export const Label = ({children, label}) => <label><b>{label}</b>{children}</lab
 export const CheckBox = ({name, iterateList, handleInputChange, value, label}) =>
     <Box m={2}>
         <FormControl component="fieldset">
-            <RadioGroup aria-label={label} name={name} value={value} onChange={handleInputChange}>
+            <RadioGroup style={{display: "block"}} aria-label={label} name={name} value={value} onChange={handleInputChange}>
                 <FormLabel component="legend">{label}</FormLabel>
                 {iterateList.map((item, id) => 
                     <FormControlLabel key={id} value={item.value} control={<Radio />} label={item.label} />)}
             </RadioGroup>
         </FormControl>                        
     </Box>
+
+export const ButtonNext = () =>{
+    const classes = useStyles();
+    return(
+        <Button
+            type="submit"
+            color="primary" 
+            variant="contained" 
+            className={classes.button} 
+        >
+            Avançar
+        </Button>
+    )
+}
+export const ButtonBack = ({handleBack}) => {
+    const classes = useStyles();
+    return(
+        <Button className={classes.button} onClick={handleBack}>
+            Voltar
+        </Button>
+    )
+}

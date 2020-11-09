@@ -4,10 +4,9 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { initialState } from '../templateCadastro/InitialState'
 import { ColorlibConnector, ColorlibStepIcon, useStyles, getSteps } from "./styledStepForm";
 
-const MultiStep = ({children, activeStep, setActiveStep, inputs, setInputs}) => {
+const MultiStep = ({children, inputs, clear, handleNext, handleBack, activeStep}) => {
   const classes = useStyles();
   const steps = getSteps();
 
@@ -15,25 +14,6 @@ const MultiStep = ({children, activeStep, setActiveStep, inputs, setInputs}) => 
     console.log(inputs.escolaridade)
   }
 
-  const clear = e => {
-    e.preventDefault()
-    setInputs(initialState)
-    setActiveStep(0)
-  }
-
-  const handleNext = () => {
-    //se um input na tela estiver vazio, não avançará
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-  console.log(inputs)
   return (
     <div className={classes.root}>
       <h1 className={classes.title}>Cadastro Único</h1>
@@ -55,7 +35,7 @@ const MultiStep = ({children, activeStep, setActiveStep, inputs, setInputs}) => 
             <Typography className={classes.instructions}>
               Cadastro de Usuário feita com sucesso.
             </Typography>
-            <Button onClick={handleReset} className={classes.button}>
+            <Button onClick={clear} className={classes.button}>
               Resetar
             </Button>
           </div>
@@ -63,7 +43,7 @@ const MultiStep = ({children, activeStep, setActiveStep, inputs, setInputs}) => 
           <div>
             {children}  
           <div>
-              <Button
+              {/* <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 className={classes.button}
@@ -71,7 +51,7 @@ const MultiStep = ({children, activeStep, setActiveStep, inputs, setInputs}) => 
                 Voltar
               </Button>
               <Button
-                onClick={e => clear(e)}
+                onClick={clear}
                 className={classes.button}
               >
                 Limpar
@@ -93,7 +73,7 @@ const MultiStep = ({children, activeStep, setActiveStep, inputs, setInputs}) => 
                 >
                   Avançar
                 </Button>
-                }
+                } */}
             </div>
           </div>
         )}

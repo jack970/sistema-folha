@@ -1,6 +1,7 @@
 export const initialState = {
     nome: "",
     cargo: "colaborador",
+    nacionalidade: "",
     tipo: "Pessoa Física",
     estado_nome: "Acre",
     tipo_sanguineo: "A+",

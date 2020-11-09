@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import  MultiStep  from '../../components/MultiStepForm';
 import Main from '../../components/template/Main'
 import { 
@@ -14,7 +14,7 @@ import GetCityState from '../../components/templateCadastro/services';
 import TableFisica from '../../components/templateCadastro/TableFisica';
 import TableJuridica from '../../components/templateCadastro/TableJuridica';
 import { DadosPessoais } from "../../components/templateCadastro/Cabecalho";
-import { initialState } from '../../components/templateCadastro/InitialState';
+import ControllForm from '../../components/MultiStepForm/ControllForm';
 
 const headerProps = {
     icon: 'fa fa-product-hunt',
@@ -23,19 +23,12 @@ const headerProps = {
 }
 
 const Cadastro = () => {
-    const [activeStep, setActiveStep] = useState(0); // Cria qtdade de passos
-    const [inputs , setInputs] = useState(initialState) // Pega Formulário inicial
+    const { inputs, setInputs, clear, activeStep, handleBack, handleNext, handleInputChange} = ControllForm()
+    const propsMultiStep = {inputs, clear, activeStep, handleBack, handleNext}
 
     const uf = inputs.estado_id // Pega o estado_id do form
     const { listUf, listCity } = GetCityState(uf) // Envia o estado_id para função e chama as listas de estados e cidades.
-
-    const handleInputChange = (e) => {
-        const {value, name} = e.target
-        setInputs(inputs => ({...inputs, [name]: value})); // Altera value do name em inputs ao digitar
-    }
-
-    const props = { inputs, setInputs, handleInputChange, listUf, listCity}
-    const propsMultiStep = { inputs, setInputs, activeStep, setActiveStep }
+    const props = { inputs, setInputs, handleNext, handleBack, handleInputChange, listUf, listCity}
     
   return (
     <Main {...headerProps}>
