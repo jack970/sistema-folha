@@ -3,7 +3,7 @@ export const initialState = {
     cargo: "colaborador",
     nacionalidade: "",
     tipo: "Pessoa Física",
-    estado_nome: "Acre",
+    estado_nome: "",
     tipo_sanguineo: "A+",
     estado_id: 12,
     data_nascimento: new Date(),

@@ -10,10 +10,6 @@ const MultiStep = ({children, inputs, clear, handleNext, handleBack, activeStep}
   const classes = useStyles();
   const steps = getSteps();
 
-  const handleSubmit = () => {
-    console.log(inputs.escolaridade)
-  }
-
   return (
     <div className={classes.root}>
       <h1 className={classes.title}>Cadastro Único</h1>

@@ -1,6 +1,11 @@
 import React from 'react';
 import  MultiStep  from '../../components/MultiStepForm';
 import Main from '../../components/template/Main'
+import GetCityState from '../../components/templateCadastro/services';
+import TableFisica from '../../components/templateCadastro/TableFisica';
+import TableJuridica from '../../components/templateCadastro/TableJuridica';
+import { DadosPessoais } from "../../components/templateCadastro/Cabecalho";
+import ControllForm from '../../components/MultiStepForm/ControllForm';
 import { 
     Certidao, 
     CTPS, 
@@ -10,11 +15,6 @@ import {
     RG, 
     TituloEleitoral
 } from '../../components/templateCadastro/Cabecalho';
-import GetCityState from '../../components/templateCadastro/services';
-import TableFisica from '../../components/templateCadastro/TableFisica';
-import TableJuridica from '../../components/templateCadastro/TableJuridica';
-import { DadosPessoais } from "../../components/templateCadastro/Cabecalho";
-import ControllForm from '../../components/MultiStepForm/ControllForm';
 
 const headerProps = {
     icon: 'fa fa-product-hunt',

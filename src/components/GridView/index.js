@@ -1,8 +1,8 @@
 import React from 'react'
 import TableForm from '../../components/template/TableForm'
-import PdfGenerate from '../PdfGenerate'
 import { group_by } from '../PdfGenerate/GroupBy'
 import { FormatReal} from '../PdfGenerate/formatReal'
+import ButtonModalPdf from '../ButtonModal'
 
 const GridView = ({infos}) => {
     
@@ -44,7 +44,7 @@ const GridView = ({infos}) => {
                 <td>R$ {FormatReal(pessoa.descontos)}</td>
                 <td>R$ {FormatReal(pessoa.liquido)}</td>
                 <td>
-                    <PdfGenerate data={groupedByMes[pessoa.mes]}/>
+                    <ButtonModalPdf data={groupedByMes[pessoa.mes]}/>
                 </td>
             </tr>
             )}

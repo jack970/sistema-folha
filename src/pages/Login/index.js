@@ -28,7 +28,7 @@ const Login = withRouter(({ history }) => {
           } catch (err) {
             setInputs({
               error:
-                "Houve um problema com o login, verifique suas credenciais. T.T"
+                "Houve um problema com o login, provavelmente possa ser um erro interno. T.T"
             });
           }
         }

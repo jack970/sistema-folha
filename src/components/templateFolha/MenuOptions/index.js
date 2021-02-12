@@ -8,9 +8,6 @@ const MenuOptions = () => {
             <S.MenuList>
                 <S.MenuLink href="#!" className="nav-link">Contra-Cheque</S.MenuLink>
             </S.MenuList>
-            <S.MenuList>
-                <S.MenuLink href="#!" className="nav-link">Contra-Cheque</S.MenuLink>
-            </S.MenuList>
         </S.MenuOptions>
     )
 }

@@ -2,7 +2,7 @@ import { TextField } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import React from 'react'
 import { AccountCircle, ContactMail } from '@material-ui/icons/';
-import { DateCalendar, CheckBox, DualRowComponent, LegendField, OnlySelectComponent, Row, SingleComponent, ButtonNext, ButtonBack} from './RowComponent'
+import { CheckBox, DualRowComponent, LegendField, OnlySelectComponent, Row, SingleComponent, ButtonNext, ButtonBack} from './RowComponent'
 import KeyboardDatePickerComponent from './DatePickerField';
 
 export const DadosPessoais = ({ inputs, setInputs, handleNext, handleInputChange, listUf, listCity }) => {
@@ -60,7 +60,6 @@ export const DadosPessoais = ({ inputs, setInputs, handleNext, handleInputChange
                         )}
                         options={listUf}
                         getOptionLabel={(option) => option.nome}
-                        getOptionSelected={(option, value) => option.nome === value.nome}
                         renderInput={(params) => 
                             <TextField 
                                 {...params} 
@@ -221,10 +220,11 @@ export const RG = ({handleNext, handleBack, inputs, handleInputChange, setInputs
                                         value={rg_uf}
                                         handleInputChange={handleInputChange}
                                         md="4"/>
-                    <DateCalendar label="Data de Expedição" 
-                                name="rg_expedicao" 
-                                setInputs={setInputs} 
-                                value={rg_expedicao}/>
+                     <KeyboardDatePickerComponent 
+                        setInputs={setInputs} 
+                        valueDate={rg_expedicao}
+                        label="Data de Expedição"
+                        name="rg_expedicao" />
                 </Row>
             </LegendField>
             <ButtonBack handleBack={handleBack} />

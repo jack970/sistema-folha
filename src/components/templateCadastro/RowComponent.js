@@ -1,11 +1,7 @@
 import React from 'react'
-import DatePicker, {registerLocale} from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css"
-import pt from 'date-fns/locale/pt-BR'
 import Button from "@material-ui/core/Button";
 import { Box, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core'
 import { useStyles } from '../MultiStepForm/styledStepForm'
-registerLocale("pt-BR", pt)
 
 export const Row = ({children}) => <div className="row"> {children} </div>
 
@@ -34,22 +30,6 @@ export const SingleRowComponent = ({name, startIcon, value, handleInputChange, l
     <Row>
         <SingleComponent name={name} startIcon={startIcon} value={value} placeholder={placeholder} handleInputChange={handleInputChange} label={label} md={md}/>
     </Row>
-
-export const DateCalendar = ({name, label, value, setInputs}) =>
-<div className="col-md-3 mb-4">
-    <div className="styleCalendar">
-        <label htmlFor="Mes_Final"><b>{label}</b></label>
-        <DatePicker 
-            selected={ value }
-            onChange={ e => setInputs(inputs => ({...inputs, [name]: e})) }
-            locale="pt-BR"
-            dateFormat="dd/MM/yyyy"
-            showMonthDropdown
-            showYearDropdown
-            className="form-control"
-            />
-    </div>
-</div>
 
 export const DualRowComponent = ({
     children, 
